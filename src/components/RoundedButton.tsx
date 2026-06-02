@@ -5,14 +5,15 @@ import { COLORS } from '../Presentation/theme/AppTheme';
 
 interface Props {
   title: string;
+  onPress?: () => void;
   
 }
 
 
-export const RoundedButton  = ({ title }: Props) => {
+export const RoundedButton  = ({ title, onPress }: Props) => {
   return (
     <TouchableOpacity
-        onPress={() => {}}
+        onPress={onPress}
         style = { styles.bnt}
         >
         <Text style={styles.Txtbnt}>{title}</Text>
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
 
-    txtBnt: {
+    Txtbnt: {
         color : COLORS.bgBlack,
         fontWeight: 'bold',
         fontSize: 16,
