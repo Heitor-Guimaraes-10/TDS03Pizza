@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 25,
+        borderRadius: 15,
     },
 
     Txtbnt: {
-        color : COLORS.bgBlack,
+        color : COLORS.bgColor,
         fontWeight: 'bold',
         fontSize: 16,
 
