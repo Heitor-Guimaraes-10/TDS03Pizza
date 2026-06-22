@@ -3,10 +3,15 @@ import { View, Text, Image, StyleSheet, Platform, Alert, TextInput, Button, Toas
 import { COLORS } from '../../theme/AppTheme';
 import { RoundedButton } from '../../../components/RoundedButton';
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../../App";
+import { RootStackParamList } from "../../../../Aula03_app";
 import { useNavigation } from '@react-navigation/native';
+import { CustomTextInput } from "../../../components/CustomTextInput";
+import useViewModel from "./ViewModel";
+
 
 export const RegisterScreen = () => {
+
+       const {userName, nameuser, userPhone, userEmail, userPassword, userPasswordConfirm, onChange, register} = useViewModel();
        const testOS = () => {
         if (Platform.OS === 'android') {
           // Android usa o ToastAndroid para exibir mensagens
@@ -35,9 +40,88 @@ export const RegisterScreen = () => {
                 />
                 <Text style={styles.logoTxt}>Selecione uma imagem</Text>
               </View>
-        
+           <View style={styles.frm}>
+
+              <CustomTextInput
+                      image={require('../../../../assets/img/user.png')}
+                      placeholder="Digite seu nome"
+                      keyboardType="default"
+                      onChangeText={onChange} 
+                      value={ userName }
+                      secureTextEntry={false}
+                      property="userName"
+                    />
+
+                      <CustomTextInput
+                              image={require('../../../../assets/img/my_user.png')}
+                              placeholder="Digite seu nome de usuário"
+                              keyboardType="default"
+                              onChangeText={onChange} 
+                              value={ nameuser }
+                              secureTextEntry={false}
+                              property="nameuser"
+                              
+                              
+                            />
+
+                            <CustomTextInput
+                              image={require('../../../../assets/img/email.png')}
+                              placeholder="Digite seu Email"
+                              keyboardType="email-address"
+                              onChangeText={onChange} 
+                              value={ userEmail }
+                              secureTextEntry={false}
+                              property="userEmail"
+                      
+                            />
+
+                     
+                              
+                              
+                            
+
+                            <CustomTextInput
+                              image={require('../../../../assets/img/phone.png')}
+                              placeholder="Digite seu telefone"
+                              keyboardType="numeric"
+                              onChangeText={onChange} 
+                              value={ userPhone }
+                              secureTextEntry={false}
+                              property="userPhone"
+                              
+                              
+                              
+                            />
+
+                            <CustomTextInput
+                              image={require('../../../../assets/img/password.png')}
+                              placeholder="Digite sua senha"
+                              keyboardType="default"
+                              onChangeText={onChange} 
+                              value={ userPassword }
+                              secureTextEntry={true}
+                              property="userPassword"
+                              
+                              
+                            />
+
+                            
+                            <CustomTextInput
+                              image={require('../../../../assets/img/confirm_password.png')}
+                              placeholder="Confirme sua senha"
+                              keyboardType="default"
+                              onChangeText={onChange} 
+                              value={ userPasswordConfirm }
+                              secureTextEntry={true}
+                              property="userPasswordConfirm"
+                              
+                              
+                            />
+
+
+                            
           
-              <View style={styles.frm}>
+              {/* <View style={styles.frm}>
                 <Text style={styles.frmTitle}>Registre-se</Text>
         
              
@@ -113,14 +197,14 @@ export const RegisterScreen = () => {
                     style={styles.txtInput}
                     
                   />
-                </View>
+                </View> */}
         
              
                 <View style={{ marginTop: 40 }}>
         
                   <RoundedButton
                     title="Cadastre-se"
-                    onPress={testOS}
+                    onPress={() => register()}
                     
         />
                 </View>

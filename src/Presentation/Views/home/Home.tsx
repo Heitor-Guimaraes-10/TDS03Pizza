@@ -1,14 +1,22 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, Platform, Alert, TextInput, Button, ToastAndroid, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../../Aula03_app";
+
+//Componentes
 import { COLORS } from '../../theme/AppTheme';
 import { RoundedButton } from '../../../components/RoundedButton';
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../../../App";
+import { CustomTextInput } from "../../../components/CustomTextInput";
 
+//view models
+
+import useViewModel from "./ViewModel";
 
 export const HomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const{ userEmail, userPassword, onChange, login } = useViewModel();
 
    const testOS = () => {
     if (Platform.OS === 'android') {
@@ -45,38 +53,45 @@ export const HomeScreen = () => {
       <View style={styles.frm}>
         <Text style={styles.frmTitle}>Entrar</Text>
 
+        <CustomTextInput
+          image={require('../../../../assets/img/user.png')}
+          placeholder="Digite seu Email / Usuário"
+          keyboardType="email-address"
+          secureTextEntry={false}
+          property="userEmail"
+          onChangeText={onChange} 
+          value={ userEmail }
+          
+          
+        />
+       <CustomTextInput
+          image={require('../../../../assets/img/password.png')}
+          placeholder="Digite sua senha"
+          keyboardType="default"
+          secureTextEntry={true}
+          property='userPassword'
+          onChangeText={onChange}
+          value={ userPassword }
+          
+          
+        />
+         <View style={styles.frmReset}>
+      
+         
+        <TouchableOpacity onPress={() => navigation.navigate('ResetPasswordScreen')}> 
+          <Text style={styles.txtReset}> Redefinir senha </Text>
+        </TouchableOpacity>
+        </View>
+
+        
      
-        <View style={styles.frmInput}>
-          <Image
-            source={require('../../../../assets/img/user.png')}
-            style={styles.frmIco}
-          />
-          <TextInput
-            placeholder="Digite seu Email / Usuário"
-            keyboardType="email-address"
-            style={styles.txtInput}
-          />
-        </View>
-
-        <View style={styles.frmInput}>
-          <Image
-            source={require('../../../../assets/img/password.png')}
-            style={styles.frmIco}
-          />
-          <TextInput
-            placeholder="Digite sua Senha"
-            keyboardType="default"
-            secureTextEntry={true}
-            style={styles.txtInput}
-          />
-        </View>
-
+        
      
         <View style={{ marginTop: 40 }}>
 
           <RoundedButton
             title="Entrar"
-            onPress={testOS}
+            onPress={() => login()}
 />
         </View>
 
@@ -88,6 +103,7 @@ export const HomeScreen = () => {
           <Text style={styles.txtRegistre}> Registre-se </Text>
         </TouchableOpacity>
         </View>
+       
       </View>
     </View>
   );
@@ -164,7 +180,21 @@ txtInput:{
 frmRegistre:{
   flexDirection:'row',
   justifyContent: 'center',
-  marginTop:15,
+  marginTop:12,
+},
+frmReset:{
+  flexDirection:'row',
+  justifyContent:"flex-start",
+  marginTop:4,
+
+},
+txtReset:{
+  fontStyle: 'italic',
+  fontWeight: 'bold',
+  borderBottomColor: COLORS.secondary,
+  borderBottomWidth: 1,
+  marginLeft: 3,
+  color: COLORS.secondary,
 },
 
 txtRegistre:{
